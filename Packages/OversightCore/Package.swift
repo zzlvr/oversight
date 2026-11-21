@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "OversightCore",
-    platforms: [.iOS(.v18), .macOS(.v14)],
+    platforms: [.iOS("18.0"), .macOS("14.0")],
     products: [
         .library(name: "OversightCore", targets: ["OversightCore"])
     ],
