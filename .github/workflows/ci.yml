@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test core package
+        working-directory: Packages/OversightCore
+        run: swift test
+
+  build:
+    runs-on: macos-15
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen
+      - name: Build unsigned app
+        run: |
+          xcodebuild -project Oversight.xcodeproj -scheme Oversight \
+            -sdk iphoneos -configuration Release -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+      - name: Package ipa
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/Oversight.app Payload/
+          zip -qr Oversight.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Oversight-unsigned-ipa
+          path: Oversight.ipa

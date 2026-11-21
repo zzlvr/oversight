@@ -1,0 +1,16 @@
+.DS_Store
+.build/
+build/
+DerivedData/
+*.xcodeproj
+*.ipa
+App/Info.plist
+App/*.entitlements
+OversightBroadcast/Info.plist
+OversightBroadcast/*.entitlements
+
+# private working files
+docs/superpowers/
+.superpowers/
+CLAUDE.md
+AGENTS.md

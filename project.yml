@@ -1,0 +1,57 @@
+name: Oversight
+options:
+  bundleIdPrefix: com.zzlvr
+  deploymentTarget:
+    iOS: "18.0"
+packages:
+  OversightCore:
+    path: Packages/OversightCore
+targets:
+  Oversight:
+    type: application
+    platform: iOS
+    sources: [App]
+    dependencies:
+      - package: OversightCore
+      - target: OversightBroadcast
+        embed: true
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Oversight
+        UILaunchScreen: {}
+        UIBackgroundModes: [audio]
+    entitlements:
+      path: App/Oversight.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.zzlvr.oversight
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zzlvr.oversight
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+  OversightBroadcast:
+    type: app-extension
+    platform: iOS
+    sources: [OversightBroadcast]
+    dependencies:
+      - package: OversightCore
+    info:
+      path: OversightBroadcast/Info.plist
+      properties:
+        CFBundleDisplayName: Oversight Broadcast
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.broadcast-services-upload
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SampleHandler
+          RPBroadcastProcessMode: RPBroadcastProcessModeSampleBuffer
+    entitlements:
+      path: OversightBroadcast/OversightBroadcast.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.zzlvr.oversight
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zzlvr.oversight.broadcast
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
