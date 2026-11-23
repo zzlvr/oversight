@@ -1,0 +1,19 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add preset" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Добавить заготовку" } } } },
+    "API key" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "API-ключ" } } } },
+    "Could not save the key" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Не удалось сохранить ключ" } } } },
+    "Language" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Язык" } } } },
+    "Model" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Модель" } } } },
+    "Prompt" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Промт" } } } },
+    "Prompt presets" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Заготовки промтов" } } } },
+    "Prompts" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Промты" } } } },
+    "Provider" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Провайдер" } } } },
+    "Settings" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Настройки" } } } },
+    "System" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Системный" } } } },
+    "Title" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Название" } } } },
+    "Your key is stored in the iOS Keychain on this device only." : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Ключ хранится только в Keychain на этом устройстве." } } } }
+  },
+  "version" : "1.0"
+}

@@ -1,6 +1,7 @@
 name: Oversight
 options:
   bundleIdPrefix: com.zzlvr
+  developmentLanguage: en
   deploymentTarget:
     iOS: "18.0"
 packages:
@@ -19,6 +20,7 @@ targets:
       path: App/Info.plist
       properties:
         CFBundleDisplayName: Oversight
+        CFBundleLocalizations: [en, ru]
         UILaunchScreen: {}
         UIBackgroundModes: [audio]
     entitlements:

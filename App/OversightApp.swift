@@ -1,11 +1,15 @@
 import SwiftUI
-import OversightCore
 
 @main
 struct OversightApp: App {
+    @StateObject private var model = SettingsModel()
+
     var body: some Scene {
         WindowGroup {
-            Text("Oversight \(coreVersion)")
+            NavigationStack {
+                SettingsView(model: model)
+            }
+            .environment(\.locale, model.locale)
         }
     }
 }
