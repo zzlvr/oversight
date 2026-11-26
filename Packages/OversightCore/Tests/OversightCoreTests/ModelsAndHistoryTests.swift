@@ -1,4 +1,5 @@
 import XCTest
+import CoreGraphics
 @testable import OversightCore
 
 final class CheapModelTests: XCTestCase {
@@ -39,46 +40,89 @@ final class CheapModelTests: XCTestCase {
 final class ScreenHistoryTests: XCTestCase {
     private let start = Date(timeIntervalSince1970: 1_000)
 
-    func testFramesCloseInTimeReplaceEachOther() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        history.add(Data([2]), at: start + 1)
-        XCTAssertEqual(history.screens.map(\.jpeg), [Data([2])])
+    /// A flat signature: frames with close values look the same.
+    private func look(_ value: UInt8) -> [UInt8] { [UInt8](repeating: value, count: 8) }
+
+    /// Feeds one unchanged screen every half second for two seconds.
+    private func hold(_ history: ScreenHistory, _ value: UInt8, from time: TimeInterval) {
+        for step in 0...4 {
+            history.add(Data([value]), signature: look(value), at: start + time + Double(step) * 0.5)
+        }
     }
 
-    func testReplacingKeepsTheSameIdentifier() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
+    func testScreenIsKeptOnlyAfterItStaysStill() {
+        let history = ScreenHistory()
+        history.add(Data([1]), signature: look(10), at: start)
+        history.add(Data([1]), signature: look(10), at: start + 1)
+        XCTAssertTrue(history.screens.isEmpty)
+        history.add(Data([1]), signature: look(10), at: start + 1.5)
+        XCTAssertEqual(history.screens.map(\.jpeg), [Data([1])])
+    }
+
+    func testMovingFramesAreNeverKept() {
+        let history = ScreenHistory()
+        for step in 0..<10 {
+            history.add(Data([UInt8(step)]), signature: look(UInt8(step * 20)), at: start + Double(step) * 0.5)
+        }
+        XCTAssertTrue(history.screens.isEmpty)
+    }
+
+    func testSwitchingAwayDoesNotAddTheTransition() {
+        let history = ScreenHistory()
+        hold(history, 10, from: 0)
+        history.add(Data([99]), signature: look(120), at: start + 2.5)
+        history.add(Data([98]), signature: look(200), at: start + 3)
+        XCTAssertEqual(history.screens.map(\.jpeg), [Data([10])])
+    }
+
+    func testSmallChangesUpdateTheSameEntry() {
+        let history = ScreenHistory()
+        hold(history, 10, from: 0)
         let id = history.screens[0].id
-        history.add(Data([2]), at: start + 1)
-        XCTAssertEqual(history.screens[0].id, id)
+        history.add(Data([13]), signature: look(13), at: start + 3)
+        XCTAssertEqual(history.screens.map(\.id), [id])
+        XCTAssertEqual(history.screens[0].jpeg, Data([13]))
     }
 
-    func testSteadyStreamStillStartsNewEntries() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        for step in 0..<8 { history.add(Data([UInt8(step)]), at: start + Double(step) * 0.5) }
-        XCTAssertEqual(history.screens.map(\.jpeg), [Data([3]), Data([7])])
+    func testReturningToTheSameScreenDoesNotDuplicateIt() {
+        let history = ScreenHistory()
+        hold(history, 10, from: 0)
+        history.add(Data([99]), signature: look(120), at: start + 2.5)
+        hold(history, 10, from: 3)
+        XCTAssertEqual(history.screens.count, 1)
     }
 
     func testOnlyTheNewestAreKept() {
-        let history = ScreenHistory(capacity: 2, spacing: 2)
-        for step in 0..<4 { history.add(Data([UInt8(step)]), at: start + Double(step) * 3) }
-        XCTAssertEqual(history.screens.map(\.jpeg), [Data([2]), Data([3])])
-    }
-
-    func testScreenBeforeADateSkipsTheTransitionFrames() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        history.add(Data([2]), at: start + 10)
-        XCTAssertEqual(history.screen(before: start + 9)?.jpeg, Data([1]))
-        XCTAssertEqual(history.screen(before: start - 5)?.jpeg, Data([1]))
+        let history = ScreenHistory(capacity: 2)
+        hold(history, 10, from: 0)
+        hold(history, 60, from: 3)
+        hold(history, 120, from: 6)
+        XCTAssertEqual(history.screens.map(\.jpeg), [Data([60]), Data([120])])
     }
 
     func testClearForgetsEverything() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
+        let history = ScreenHistory()
+        hold(history, 10, from: 0)
         history.clear()
         XCTAssertTrue(history.screens.isEmpty)
-        XCTAssertNil(history.screen(before: start))
+        history.add(Data([10]), signature: look(10), at: start + 5)
+        XCTAssertTrue(history.screens.isEmpty)
+    }
+
+    func testSignatureTellsPicturesApart() throws {
+        func jpeg(_ gray: CGFloat) throws -> Data {
+            let context = CGContext(data: nil, width: 200, height: 400, bitsPerComponent: 8, bytesPerRow: 0,
+                                    space: CGColorSpaceCreateDeviceRGB(),
+                                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+            context.setFillColor(red: gray, green: gray, blue: gray, alpha: 1)
+            context.fill(CGRect(x: 0, y: 0, width: 200, height: 400))
+            return try XCTUnwrap(downscaledJPEG(from: context.makeImage()!))
+        }
+        let dark = try XCTUnwrap(screenSignature(of: jpeg(0.1)))
+        let darkAgain = try XCTUnwrap(screenSignature(of: jpeg(0.1)))
+        let light = try XCTUnwrap(screenSignature(of: jpeg(0.9)))
+        XCTAssertTrue(looksTheSame(dark, darkAgain))
+        XCTAssertFalse(looksTheSame(dark, light))
+        XCTAssertNil(screenSignature(of: Data([1, 2, 3])))
     }
 }
