@@ -19,6 +19,7 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     private var index = 0
     private var shownSince = Date()
     private var gate = PauseGate()
+    private var reopen = false
 
     func prepare() {
         guard controller == nil else { return }
@@ -159,6 +160,7 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     func pictureInPictureController(_ c: AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
         let pressed = Date()
         DispatchQueue.main.async {
+            self.reopen = true
             self.onReturn?(pressed)
             completionHandler(true)
         }
@@ -169,7 +171,13 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     }
 
     func pictureInPictureControllerDidStopPictureInPicture(_ c: AVPictureInPictureController) {
-        DispatchQueue.main.async { self.isActive = false }
+        DispatchQueue.main.async {
+            self.isActive = false
+            guard self.reopen else { return }
+            self.reopen = false
+            // The system needs a moment to finish closing before the window can open again.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { self.start() }
+        }
     }
 
     func pictureInPictureController(_ c: AVPictureInPictureController, failedToStartPictureInPictureWithError error: Error) {

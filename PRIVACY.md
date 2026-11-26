@@ -13,7 +13,7 @@ A screenshot contains whatever is on the screen, including messages, addresses o
 ## What stays on the phone
 
 - While the broadcast runs, the screen recording extension passes frames to the app over the phone's internal loopback connection. Before sending, the extension checks that the receiver holds the key it saw the first time.
-- The app keeps the latest frame and up to six screens you marked (with the window's pause or return button) in memory so you can ask about them. They are not written to disk, and they are cleared when the app receives the end of the broadcast or is closed.
-- When you leave Oversight, its screen is covered so that recent screens are not in the app switcher picture iOS saves.
+- The app keeps the latest frame and up to six screens you marked (with the window's pause or return button) in memory so you can ask about them. The app does not save them to files, and they are cleared when the app receives the end of the broadcast or is closed.
+- When you leave Oversight, iOS saves a picture of it for the app switcher. That picture can include the screens and the answer shown in the app.
 - API keys are stored in the iOS Keychain.
 - Presets, instructions and settings are stored in the app's preferences.
