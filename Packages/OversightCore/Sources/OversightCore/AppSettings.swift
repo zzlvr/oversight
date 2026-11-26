@@ -30,6 +30,18 @@ public final class AppSettings {
         set { defaults.set(newValue.rawValue, forKey: "oversight.language") }
     }
 
+    /// Instructions sent before every preset; blank restores the default.
+    public var systemPrompt: String {
+        get { defaults.string(forKey: "oversight.systemPrompt") ?? defaultSystemPrompt }
+        set {
+            if newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                defaults.removeObject(forKey: "oversight.systemPrompt")
+            } else {
+                defaults.set(newValue, forKey: "oversight.systemPrompt")
+            }
+        }
+    }
+
     /// The model the user typed for `kind`, or `nil` if none (blank counts as none).
     public func model(for kind: ProviderKind) -> String? {
         let value = defaults.string(forKey: "oversight.model.\(kind.rawValue)")?

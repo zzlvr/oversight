@@ -13,6 +13,12 @@ public final class FrameBuffer: @unchecked Sendable {
         lock.unlock()
     }
 
+    public func clear() {
+        lock.lock()
+        frame = nil
+        lock.unlock()
+    }
+
     public func latest() -> Data? {
         lock.lock()
         defer { lock.unlock() }
