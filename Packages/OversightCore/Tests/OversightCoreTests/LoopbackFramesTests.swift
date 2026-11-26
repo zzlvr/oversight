@@ -149,6 +149,14 @@ final class LoopbackFramesTests: XCTestCase {
         XCTAssertFalse(send(Data([1]), port: 47994))
     }
 
+    func testIdentityIsStableInDefaults() {
+        let name = "oversight.tests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        let first = FrameIdentity.load(from: defaults)
+        XCTAssertEqual(FrameIdentity.load(from: defaults).publicKey, first.publicKey)
+        defaults.removePersistentDomain(forName: name)
+    }
+
     func testIdentityIsStableInKeychain() {
         let keychain = KeychainStore(service: "oversight.tests.\(UUID().uuidString)")
         let first = FrameIdentity.load(from: keychain)
