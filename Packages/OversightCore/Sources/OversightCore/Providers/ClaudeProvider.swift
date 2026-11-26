@@ -3,9 +3,9 @@ import Foundation
 struct ClaudeProvider: VisionProvider {
     func makeRequest(prompt: String, jpeg: Data, apiKey: String, model: String) throws -> URLRequest {
         let key = try ProviderSupport.requireKey(apiKey)
-        let body: [String: Any] = [
+        var body: [String: Any] = [
             "model": model,
-            "max_tokens": 1024,
+            "max_tokens": 4096,
             "messages": [[
                 "role": "user",
                 "content": [
@@ -15,6 +15,10 @@ struct ClaudeProvider: VisionProvider {
                 ],
             ]],
         ]
+        // Haiku 5 thinks by default; low effort keeps answers quick and cheap.
+        if model.hasPrefix("claude-haiku-5") {
+            body["output_config"] = ["effort": "low"]
+        }
         return try ProviderSupport.request(
             url: URL(string: "https://api.anthropic.com/v1/messages")!,
             headers: ["x-api-key": key, "anthropic-version": "2023-06-01"],

@@ -5,9 +5,9 @@ public enum ProviderKind: String, Codable, CaseIterable, Sendable {
 
     public var defaultModel: String {
         switch self {
-        case .claude: return "claude-sonnet-5-5"
-        case .openai: return "gpt-4o"
-        case .gemini: return "gemini-2.0-flash"
+        case .claude: return "claude-haiku-5-5"
+        case .openai: return "gpt-6-luna"
+        case .gemini: return "gemini-3.5-flash-lite"
         }
     }
 }

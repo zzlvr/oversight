@@ -3,9 +3,9 @@ import Foundation
 struct OpenAIProvider: VisionProvider {
     func makeRequest(prompt: String, jpeg: Data, apiKey: String, model: String) throws -> URLRequest {
         let key = try ProviderSupport.requireKey(apiKey)
-        let body: [String: Any] = [
+        var body: [String: Any] = [
             "model": model,
-            "max_completion_tokens": 1024,
+            "max_completion_tokens": 4096,
             "messages": [[
                 "role": "user",
                 "content": [
@@ -15,6 +15,9 @@ struct OpenAIProvider: VisionProvider {
                 ],
             ]],
         ]
+        if model.hasPrefix("gpt-6") {
+            body["reasoning_effort"] = "low"
+        }
         return try ProviderSupport.request(
             url: URL(string: "https://api.openai.com/v1/chat/completions")!,
             headers: ["Authorization": "Bearer \(key)"],

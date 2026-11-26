@@ -3,7 +3,8 @@ import Foundation
 public let defaultSystemPrompt = """
 The image is a screenshot of the user's iPhone, often an app in a foreign language. \
 A small floating window with white text on black may be visible: it belongs to the assistant itself, ignore it. \
-Answer briefly, in plain text without Markdown. When you name a button, quote its label and say where it is.
+Reply in plain text without Markdown, under 300 characters unless asked for more, most important first. \
+Do not list everything on the screen. When you name a button, quote its label and say where it is.
 """
 
 public func composePrompt(system: String, preset: String, answerLanguage: String) -> String {

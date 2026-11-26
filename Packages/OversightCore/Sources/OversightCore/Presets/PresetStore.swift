@@ -12,7 +12,7 @@ public final class PresetStore {
         PromptPreset(
             id: UUID(uuidString: "6F1C2A10-0000-4000-8000-000000000001")!,
             title: "Translate screen",
-            prompt: "Translate all text visible on the screen. Keep the order it appears in."),
+            prompt: "Translate what matters on this screen: its title, the main buttons, filters and prices. Skip repeated items."),
         PromptPreset(
             id: UUID(uuidString: "6F1C2A10-0000-4000-8000-000000000002")!,
             title: "Where do I tap?",
