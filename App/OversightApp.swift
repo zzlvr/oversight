@@ -28,6 +28,7 @@ struct RootView: View {
                 .ignoresSafeArea()
             }
         }
+        .fontDesign(.rounded)
         .environment(\.locale, settings.locale)
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { assistant.appBecameActive() }

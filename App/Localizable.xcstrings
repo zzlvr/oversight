@@ -271,16 +271,6 @@
         }
       }
     },
-    "Get ready": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подготовка"
-          }
-        }
-      }
-    },
     "Saved": {
       "localizations": {
         "ru": {
@@ -331,26 +321,6 @@
         }
       }
     },
-    "Ask about a screen": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Спросить про экран"
-          }
-        }
-      }
-    },
-    "Open the app you need help with, wait a few seconds, then come back here.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Откройте приложение, с которым нужна помощь, подождите пару секунд и вернитесь сюда."
-          }
-        }
-      }
-    },
     "What do you want to know?": {
       "localizations": {
         "ru": {
@@ -367,36 +337,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отправить"
-          }
-        }
-      }
-    },
-    "While you are in another app": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пока вы в другом приложении"
-          }
-        }
-      }
-    },
-    "Pause in the floating window runs your first preset": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пауза в плавающем окне запускает первую заготовку"
-          }
-        }
-      }
-    },
-    "The skip buttons turn pages of a long answer": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Кнопки перемотки листают длинный ответ"
           }
         }
       }
@@ -487,6 +427,146 @@
           "stringUnit": {
             "state": "translated",
             "value": "На бесплатном тарифе Gemini Google может использовать присланное для улучшения своих продуктов, и это могут читать люди. Не спрашивайте, пока на экране личные данные. Вам должно быть не меньше 18 лет."
+          }
+        }
+      }
+    },
+    "Get set up": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подготовка"
+          }
+        }
+      }
+    },
+    "Ready": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё готово"
+          }
+        }
+      }
+    },
+    "Open any app and press pause in the floating window.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте любое приложение и нажмите паузу в плавающем окне."
+          }
+        }
+      }
+    },
+    "Screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран"
+          }
+        }
+      }
+    },
+    "Open the app you need help with, then come back here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте приложение, с которым нужна помощь, и вернитесь сюда."
+          }
+        }
+      }
+    },
+    "Ask about this screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спросите про этот экран"
+          }
+        }
+      }
+    },
+    "Copy": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копировать"
+          }
+        }
+      }
+    },
+    "Welcome to Oversight": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добро пожаловать в Oversight"
+          }
+        }
+      }
+    },
+    "Help with any app, in your language": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помощь с любым приложением на вашем языке"
+          }
+        }
+      }
+    },
+    "Add your API key. Gemini has a free tier.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте API-ключ. У Gemini есть бесплатный тариф."
+          }
+        }
+      }
+    },
+    "Start the screen broadcast. Nothing is sent until you ask.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Начните трансляцию экрана. Ничего не отправляется, пока вы не спросите."
+          }
+        }
+      }
+    },
+    "Open the floating window and switch to any app.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте плавающее окно и перейдите в любое приложение."
+          }
+        }
+      }
+    },
+    "When you ask, one screenshot goes to the AI provider you chose.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда вы спрашиваете, один скриншот уходит выбранному провайдеру ИИ."
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить"
           }
         }
       }

@@ -17,6 +17,7 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     private var screens = ["Oversight"]
     private var index = 0
     private var shownSince = Date()
+    private var gate = PauseGate()
 
     func prepare() {
         guard controller == nil else { return }
@@ -123,9 +124,11 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     // MARK: AVPictureInPictureSampleBufferPlaybackDelegate
 
     func pictureInPictureController(_ c: AVPictureInPictureController, setPlaying playing: Bool) {
-        DispatchQueue.main.async {
-            self.onPlayPause?()
-            c.invalidatePlaybackState()
+        let pressed = Date()
+        DispatchQueue.main.async { c.invalidatePlaybackState() }
+        guard !playing else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + PauseGate.settle) {
+            if self.gate.shouldAsk(pausedAt: pressed) { self.onPlayPause?() }
         }
     }
 
@@ -142,7 +145,11 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
 
     func pictureInPictureController(_ c: AVPictureInPictureController, skipByInterval skipInterval: CMTime, completion completionHandler: @escaping () -> Void) {
         let step = skipInterval.seconds >= 0 ? 1 : -1
-        DispatchQueue.main.async { self.turnPage(by: step) }
+        let pressed = Date()
+        DispatchQueue.main.async {
+            self.gate.skipped(at: pressed)
+            self.turnPage(by: step)
+        }
         completionHandler()
     }
 
