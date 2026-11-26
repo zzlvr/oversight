@@ -43,9 +43,9 @@ final class AppSettingsTests: XCTestCase {
 
     func testSettingsDefaults() {
         let settings = AppSettings(defaults: freshDefaults())
-        XCTAssertEqual(settings.provider, .claude)
+        XCTAssertEqual(settings.provider, .gemini)
         XCTAssertEqual(settings.language, .system)
-        XCTAssertEqual(settings.effectiveModel, ProviderKind.claude.defaultModel)
+        XCTAssertEqual(settings.effectiveModel, ProviderKind.gemini.defaultModel)
     }
 
     func testSettingsPersistAcrossInstances() {
@@ -70,8 +70,34 @@ final class AppSettingsTests: XCTestCase {
 
     func testBlankModelFallsBackToDefault() {
         let settings = AppSettings(defaults: freshDefaults())
+        settings.provider = .claude
         settings.setModel("   ", for: .claude)
         XCTAssertEqual(settings.effectiveModel, ProviderKind.claude.defaultModel)
+    }
+
+    func testSomeoneWhoAlreadySavedAKeyKeepsThatProvider() {
+        let settings = AppSettings(defaults: freshDefaults())
+        settings.keepProviderWithKey { $0 == .claude }
+        XCTAssertEqual(settings.provider, .claude)
+    }
+
+    func testNewUserGetsGemini() {
+        let settings = AppSettings(defaults: freshDefaults())
+        settings.keepProviderWithKey { _ in false }
+        XCTAssertEqual(settings.provider, .gemini)
+    }
+
+    func testChosenProviderIsNeverOverridden() {
+        let settings = AppSettings(defaults: freshDefaults())
+        settings.provider = .openai
+        settings.keepProviderWithKey { $0 == .claude }
+        XCTAssertEqual(settings.provider, .openai)
+    }
+
+    func testKeyPages() {
+        XCTAssertEqual(ProviderKind.gemini.keyPageURL.absoluteString, "https://aistudio.google.com/api-keys")
+        XCTAssertEqual(ProviderKind.claude.keyPageURL.host, "console.anthropic.com")
+        XCTAssertEqual(ProviderKind.openai.keyPageURL.host, "platform.openai.com")
     }
 
     func testLanguageLocaleIdentifiers() {
