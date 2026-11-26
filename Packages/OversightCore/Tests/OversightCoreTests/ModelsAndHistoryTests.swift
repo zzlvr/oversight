@@ -37,48 +37,59 @@ final class CheapModelTests: XCTestCase {
 }
 
 final class ScreenHistoryTests: XCTestCase {
-    private let start = Date(timeIntervalSince1970: 1_000)
-
-    func testFramesCloseInTimeReplaceEachOther() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        history.add(Data([2]), at: start + 1)
-        XCTAssertEqual(history.screens.map(\.jpeg), [Data([2])])
+    func testMarkedScreensAreKeptOldestFirst() {
+        let history = ScreenHistory()
+        history.mark(Data([1]))
+        history.mark(Data([2]))
+        XCTAssertEqual(history.screens.map(\.jpeg), [Data([1]), Data([2])])
     }
 
-    func testReplacingKeepsTheSameIdentifier() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        let id = history.screens[0].id
-        history.add(Data([2]), at: start + 1)
-        XCTAssertEqual(history.screens[0].id, id)
-    }
-
-    func testSteadyStreamStillStartsNewEntries() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        for step in 0..<8 { history.add(Data([UInt8(step)]), at: start + Double(step) * 0.5) }
-        XCTAssertEqual(history.screens.map(\.jpeg), [Data([3]), Data([7])])
+    func testMarkingTheSameFrameAgainDoesNotDuplicateIt() {
+        let history = ScreenHistory()
+        history.mark(Data([1]))
+        history.mark(Data([1]))
+        XCTAssertEqual(history.screens.count, 1)
     }
 
     func testOnlyTheNewestAreKept() {
-        let history = ScreenHistory(capacity: 2, spacing: 2)
-        for step in 0..<4 { history.add(Data([UInt8(step)]), at: start + Double(step) * 3) }
+        let history = ScreenHistory(capacity: 2)
+        for value: UInt8 in 0..<4 { history.mark(Data([value])) }
         XCTAssertEqual(history.screens.map(\.jpeg), [Data([2]), Data([3])])
     }
 
-    func testScreenBeforeADateSkipsTheTransitionFrames() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        history.add(Data([2]), at: start + 10)
-        XCTAssertEqual(history.screen(before: start + 9)?.jpeg, Data([1]))
-        XCTAssertEqual(history.screen(before: start - 5)?.jpeg, Data([1]))
+    func testClearForgetsEverything() {
+        let history = ScreenHistory()
+        history.mark(Data([1]))
+        history.clear()
+        XCTAssertTrue(history.screens.isEmpty)
+    }
+}
+
+final class RecentFramesTests: XCTestCase {
+    private let start = Date(timeIntervalSince1970: 1_000)
+
+    func testPicksTheFrameFromJustBeforeAMoment() {
+        let recent = RecentFrames()
+        for step in 0..<4 { recent.add(Data([UInt8(step)]), at: start + Double(step)) }
+        XCTAssertEqual(recent.frame(before: start + 2.3), Data([2]))
+    }
+
+    func testStaticScreenKeepsItsOldFrame() {
+        let recent = RecentFrames()
+        recent.add(Data([7]), at: start)
+        XCTAssertEqual(recent.frame(before: start + 60), Data([7]))
+    }
+
+    func testFallsBackToTheOldestKept() {
+        let recent = RecentFrames(capacity: 2)
+        for step in 0..<3 { recent.add(Data([UInt8(step)]), at: start + Double(step)) }
+        XCTAssertEqual(recent.frame(before: start), Data([1]))
     }
 
     func testClearForgetsEverything() {
-        let history = ScreenHistory(capacity: 6, spacing: 2)
-        history.add(Data([1]), at: start)
-        history.clear()
-        XCTAssertTrue(history.screens.isEmpty)
-        XCTAssertNil(history.screen(before: start))
+        let recent = RecentFrames()
+        recent.add(Data([1]), at: start)
+        recent.clear()
+        XCTAssertNil(recent.frame(before: start + 1))
     }
 }
