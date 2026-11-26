@@ -29,6 +29,19 @@ public struct FrameIdentity {
         return identity
     }
 
+    /// For the broadcast extension: kept in its own sandboxed preferences, which are removed
+    /// together with the app, like the key the app remembers for it.
+    public static func load(from defaults: UserDefaults) -> FrameIdentity {
+        let name = "frameIdentity"
+        if let raw = defaults.data(forKey: name),
+           let key = try? P256.Signing.PrivateKey(rawRepresentation: raw) {
+            return FrameIdentity(key: key)
+        }
+        let identity = FrameIdentity()
+        defaults.set(identity.key.rawRepresentation, forKey: name)
+        return identity
+    }
+
     /// 64 bytes of public key followed by a 64 byte signature of `message`.
     func proof(of message: Data) -> Data? {
         guard let signature = try? key.signature(for: message) else { return nil }

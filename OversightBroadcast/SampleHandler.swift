@@ -7,7 +7,7 @@ final class SampleHandler: RPBroadcastSampleHandler {
     private let context = CIContext()
     private var lastSend = Date.distantPast
     private let sender = FrameSender(
-        identity: .load(from: KeychainStore(service: "com.zzlvr.oversight.broadcast")),
+        identity: .load(from: UserDefaults.standard),
         pins: PinStore(
             load: { UserDefaults.standard.data(forKey: "pinnedAppKey") },
             save: { UserDefaults.standard.set($0, forKey: "pinnedAppKey") }))
