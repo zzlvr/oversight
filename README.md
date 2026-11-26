@@ -35,8 +35,9 @@ With a free Apple ID the signature lasts 7 days. Install the app again after tha
 3. Open the floating window.
 4. Switch to the other app.
    - Pause in the floating window runs your first preset.
-   - The skip buttons turn pages of a long answer.
-5. To ask something specific, tap the return button in the floating window and type your question about that screen.
+   - Skip back saves the current screen without sending it.
+   - On a long answer the skip buttons turn pages instead.
+5. To ask something specific, save the screen, switch to Oversight and type your question. The window's full-screen button saves the screen and opens Oversight in one step.
 
 ## Limits
 

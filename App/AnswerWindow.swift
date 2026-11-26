@@ -11,6 +11,7 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     @Published var isActive = false
     var onPlayPause: (() -> Void)?
     var onReturn: ((Date) -> Void)?
+    var onSave: (() -> Void)?
 
     private var controller: AVPictureInPictureController?
     private var timebase: CMTimebase?
@@ -146,11 +147,15 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     func pictureInPictureController(_ c: AVPictureInPictureController, didTransitionToRenderSize newRenderSize: CMVideoDimensions) {}
 
     func pictureInPictureController(_ c: AVPictureInPictureController, skipByInterval skipInterval: CMTime, completion completionHandler: @escaping () -> Void) {
-        let step = skipInterval.seconds >= 0 ? 1 : -1
+        let forward = skipInterval.seconds >= 0
         let pressed = Date()
         DispatchQueue.main.async {
             self.gate.skipped(at: pressed)
-            self.turnPage(by: step)
+            switch skipAction(forward: forward, pageCount: self.screens.count) {
+            case .turnPage(let step): self.turnPage(by: step)
+            case .saveScreen: self.onSave?()
+            case .nothing: break
+            }
         }
         completionHandler()
     }

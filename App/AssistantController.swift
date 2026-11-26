@@ -27,6 +27,9 @@ final class AssistantController: ObservableObject {
         window.onPlayPause = { [weak self] in
             Task { @MainActor in await self?.askFromWindow() }
         }
+        window.onSave = { [weak self] in
+            Task { @MainActor in self?.saveCurrentScreen() }
+        }
         window.onReturn = { [weak self] pressed in
             Task { @MainActor in self?.markScreen(leftAt: pressed) }
         }
@@ -65,7 +68,18 @@ final class AssistantController: ObservableObject {
         startListening()
     }
 
-    /// The window's return button: keep what was on screen just before it was pressed.
+    /// The window's skip-back button: keep the screen of the other app without asking anything.
+    private func saveCurrentScreen() {
+        guard UIApplication.shared.applicationState != .active, !thinking else { return }
+        guard let frame = frames.latest() else {
+            window.show(text("No screen captured yet. Start the broadcast"))
+            return
+        }
+        mark(frame)
+        window.show(text("Screen saved. Open Oversight to ask about it"))
+    }
+
+    /// The window's full-screen button: keep what was on screen just before it was pressed.
     private func markScreen(leftAt pressed: Date) {
         guard let frame = recent.frame(before: pressed.addingTimeInterval(-0.7)) else { return }
         mark(frame)

@@ -561,22 +561,32 @@
         }
       }
     },
-    "In another app, tap the return button in the floating window, or press pause. That screen appears here.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В другом приложении нажмите кнопку возврата в плавающем окне или паузу. Этот экран появится здесь."
-          }
-        }
-      }
-    },
     "Done": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Готово"
+          }
+        }
+      }
+    },
+    "Screen saved. Open Oversight to ask about it": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран сохранён. Откройте Oversight, чтобы спросить о нём"
+          }
+        }
+      }
+    },
+    "In another app, press −10 in the floating window to save the screen, or pause to ask right away. It appears here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В другом приложении нажмите −10 в плавающем окне, чтобы сохранить экран, или паузу, чтобы сразу спросить. Он появится здесь."
           }
         }
       }

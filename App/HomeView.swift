@@ -147,7 +147,7 @@ struct HomeView: View {
                     .overlay(ViewfinderCorners().stroke(Color.accentColor, style: StrokeStyle(lineWidth: 3, lineCap: .round)))
                     .frame(maxWidth: .infinity)
             } else {
-                Text("In another app, tap the return button in the floating window, or press pause. That screen appears here.")
+                Text("In another app, press −10 in the floating window to save the screen, or pause to ask right away. It appears here.")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding(28)
