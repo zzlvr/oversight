@@ -19,6 +19,13 @@ struct SettingsView: View {
                 if model.keySaveFailed {
                     Text("Could not save the key").foregroundStyle(.red)
                 }
+                Link(destination: model.provider.keyPageURL) {
+                    if model.provider == .gemini {
+                        Label("Get a free API key", systemImage: "key")
+                    } else {
+                        Label("Get an API key", systemImage: "key")
+                    }
+                }
                 LabeledContent("Model") {
                     TextField(model.provider.defaultModel, text: $model.model)
                         .multilineTextAlignment(.trailing)
@@ -28,7 +35,15 @@ struct SettingsView: View {
             } header: {
                 Text("Provider")
             } footer: {
-                Text("Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.")
+                Text("Open the key page, sign in, create a key and paste it here. Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.")
+            }
+
+            if model.provider == .gemini {
+                Section {
+                    Label("On Gemini's free tier, Google may use what you send to improve its products, and people may read it. Do not ask while private information is on the screen. You must be 18 or older.",
+                          systemImage: "exclamationmark.triangle")
+                        .font(.footnote)
+                }
             }
 
             Section("Language") {

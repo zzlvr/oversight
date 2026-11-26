@@ -21,8 +21,16 @@ public final class AppSettings {
     }
 
     public var provider: ProviderKind {
-        get { defaults.string(forKey: "oversight.provider").flatMap(ProviderKind.init(rawValue:)) ?? .claude }
+        get { defaults.string(forKey: "oversight.provider").flatMap(ProviderKind.init(rawValue:)) ?? .gemini }
         set { defaults.set(newValue.rawValue, forKey: "oversight.provider") }
+    }
+
+    /// Gemini is the default for new users. Someone who saved another key before keeps that provider.
+    public func keepProviderWithKey(_ hasKey: (ProviderKind) -> Bool) {
+        guard defaults.string(forKey: "oversight.provider") == nil, !hasKey(.gemini),
+              let used = [ProviderKind.claude, .openai].first(where: hasKey)
+        else { return }
+        provider = used
     }
 
     public var language: AppLanguage {

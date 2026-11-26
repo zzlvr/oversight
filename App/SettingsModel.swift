@@ -51,6 +51,7 @@ final class SettingsModel: ObservableObject {
         let settings = AppSettings()
         let presetStore = PresetStore()
         let keychain = KeychainStore(service: "com.zzlvr.oversight")
+        settings.keepProviderWithKey { keychain.get($0.rawValue) != nil }
         self.settings = settings
         self.presetStore = presetStore
         self.keychain = keychain

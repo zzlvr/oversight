@@ -3,6 +3,15 @@ import Foundation
 public enum ProviderKind: String, Codable, CaseIterable, Sendable {
     case claude, openai, gemini
 
+    /// Where the user creates an API key.
+    public var keyPageURL: URL {
+        switch self {
+        case .claude: return URL(string: "https://console.anthropic.com/settings/keys")!
+        case .openai: return URL(string: "https://platform.openai.com/api-keys")!
+        case .gemini: return URL(string: "https://aistudio.google.com/api-keys")!
+        }
+    }
+
     public var defaultModel: String {
         switch self {
         case .claude: return "claude-haiku-5-5"

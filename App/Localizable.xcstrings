@@ -401,16 +401,6 @@
         }
       }
     },
-    "Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ключ хранится только в Keychain на этом устройстве. Оставьте модель пустой, чтобы использовать недорогую по умолчанию."
-          }
-        }
-      }
-    },
     "The first preset is the one the floating window runs.": {
       "localizations": {
         "ru": {
@@ -457,6 +447,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это выгодно?"
+          }
+        }
+      }
+    },
+    "Get a free API key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Получить бесплатный API-ключ"
+          }
+        }
+      }
+    },
+    "Get an API key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Получить API-ключ"
+          }
+        }
+      }
+    },
+    "Open the key page, sign in, create a key and paste it here. Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте страницу ключа, войдите, создайте ключ и вставьте его сюда. Ключ хранится только в Keychain на этом устройстве. Оставьте модель пустой, чтобы использовать недорогую по умолчанию."
+          }
+        }
+      }
+    },
+    "On Gemini's free tier, Google may use what you send to improve its products, and people may read it. Do not ask while private information is on the screen. You must be 18 or older.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На бесплатном тарифе Gemini Google может использовать присланное для улучшения своих продуктов, и это могут читать люди. Не спрашивайте, пока на экране личные данные. Вам должно быть не меньше 18 лет."
           }
         }
       }

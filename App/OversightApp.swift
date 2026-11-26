@@ -18,6 +18,16 @@ struct RootView: View {
         NavigationStack {
             HomeView(assistant: assistant, settings: settings, window: assistant.window)
         }
+        // iOS saves a picture of the app for the app switcher; recent screens must not be in it.
+        .overlay {
+            if scenePhase != .active {
+                ZStack {
+                    Color(.systemBackground)
+                    Text(verbatim: "Oversight").font(.title.bold())
+                }
+                .ignoresSafeArea()
+            }
+        }
         .environment(\.locale, settings.locale)
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { assistant.appBecameActive() }
