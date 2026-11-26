@@ -501,16 +501,6 @@
         }
       }
     },
-    "Help with any app, in your language": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Помощь с любым приложением на вашем языке"
-          }
-        }
-      }
-    },
     "Add your API key. Gemini has a free tier.": {
       "localizations": {
         "ru": {
@@ -587,6 +577,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "В другом приложении нажмите −10 в плавающем окне, чтобы сохранить экран, или паузу, чтобы сразу спросить. Он появится здесь."
+          }
+        }
+      }
+    },
+    "An assistant that sees your screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помощник, который видит ваш экран"
           }
         }
       }

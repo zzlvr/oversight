@@ -308,7 +308,7 @@ struct WelcomeView: View {
                 .foregroundStyle(Color.accentColor)
             VStack(alignment: .leading, spacing: 8) {
                 Text("Welcome to Oversight").font(.largeTitle.bold())
-                Text("Help with any app, in your language").foregroundStyle(.secondary)
+                Text("An assistant that sees your screen").foregroundStyle(.secondary)
             }
             row("key", "Add your API key. Gemini has a free tier.")
             row("record.circle", "Start the screen broadcast. Nothing is sent until you ask.")
