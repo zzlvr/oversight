@@ -11,11 +11,16 @@ jobs:
   release:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Test core package
         run: swift test --package-path Packages/OversightCore
       - name: Install XcodeGen
-        run: brew install xcodegen
+        run: |
+          curl -fsSLo xcodegen.zip https://github.com/yonaskolb/XcodeGen/releases/download/2.46.0/xcodegen.zip
+          echo "4d9e34b62172d645eed6457cac13fc222569974098ef4ee9c3368bedf0196806  xcodegen.zip" | shasum -a 256 -c -
+          unzip -q xcodegen.zip -d "$RUNNER_TEMP"
+          rm xcodegen.zip
+          echo "$RUNNER_TEMP/xcodegen/bin" >> "$GITHUB_PATH"
       - name: Generate project
         run: xcodegen
       - name: Build unsigned app
@@ -28,7 +33,9 @@ jobs:
           mkdir Payload
           cp -R build/Build/Products/Release-iphoneos/Oversight.app Payload/
           zip -qr Oversight.ipa Payload
+      - name: Checksum
+        run: shasum -a 256 Oversight.ipa > Oversight.ipa.sha256
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" Oversight.ipa --title "$GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" Oversight.ipa Oversight.ipa.sha256 --title "$GITHUB_REF_NAME" --generate-notes

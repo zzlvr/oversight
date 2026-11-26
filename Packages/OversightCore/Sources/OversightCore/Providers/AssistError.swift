@@ -7,6 +7,8 @@ public enum AssistError: Error, Equatable {
     case emptyAnswer
     case timeout
     case busy
+    case invalidKey
+    case invalidModel
 
     /// English text shown to the user; also the localization key.
     public var messageKey: String {
@@ -16,6 +18,8 @@ public enum AssistError: Error, Equatable {
         case .timeout: return "The request timed out. Try again"
         case .emptyAnswer: return "The AI returned an empty answer"
         case .busy: return "Still working on the last question"
+        case .invalidKey: return "Invalid API key"
+        case .invalidModel: return "Invalid model name"
         case .http(let status, _):
             if status == 401 || status == 403 { return "Invalid API key" }
             if status == 0 { return "No network connection" }

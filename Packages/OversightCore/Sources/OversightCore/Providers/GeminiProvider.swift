@@ -3,10 +3,8 @@ import Foundation
 struct GeminiProvider: VisionProvider {
     func makeRequest(prompt: String, jpeg: Data, apiKey: String, model: String) throws -> URLRequest {
         let key = try ProviderSupport.requireKey(apiKey)
-        let encodedModel = model.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? model
-        guard let url = URL(string: "https://generativelanguage.googleapis.com/v1beta/models/\(encodedModel):generateContent") else {
-            throw AssistError.http(status: 0, message: "Invalid model name")
-        }
+        try ProviderSupport.requireModel(model)
+        let url = URL(string: "https://generativelanguage.googleapis.com/v1beta/models/\(model):generateContent")!
         let body: [String: Any] = [
             "contents": [[
                 "parts": [

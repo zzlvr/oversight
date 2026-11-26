@@ -60,7 +60,7 @@ Keep this order. The broadcast gives the app your screen, and the floating windo
 
 ## Troubleshooting
 
-- **The app does not receive the screen.** Open Oversight first, then start the broadcast and make sure Oversight Broadcast is selected. If you installed it again with another Apple ID, delete the app and reinstall.
+- **The app does not receive the screen.** Open Oversight first, then start the broadcast and make sure Oversight Broadcast is selected. After a reinstall, tap Reset screen pairing in Settings. If you used another Apple ID, delete the app and reinstall.
 - **The floating window does not open.** Tap Open again.
 - **Invalid API key.** Check that the key belongs to the provider selected in Settings.
 - **The error mentions the model.** Clear the Model field to use the default.

@@ -1,6 +1,7 @@
 import ReplayKit
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 import OversightCore
 
 struct HomeView: View {
@@ -201,7 +202,10 @@ struct HomeView: View {
                 Spacer()
                 if !assistant.thinking {
                     Button {
-                        UIPasteboard.general.string = assistant.answer
+                        // Stays on this phone and expires, instead of syncing to other devices.
+                        UIPasteboard.general.setItems(
+                            [[UTType.utf8PlainText.identifier: assistant.answer]],
+                            options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(600)])
                     } label: {
                         Image(systemName: "doc.on.doc")
                     }
@@ -237,7 +241,7 @@ struct HomeView: View {
                             typing = false
                             Task { await assistant.askAboutSelectedScreen(preset.prompt) }
                         } label: {
-                            Text(LocalizedStringKey(preset.title)).font(.subheadline.weight(.medium))
+                            Text(LocalizedStringKey(preset.title.isEmpty ? "Untitled" : preset.title)).font(.subheadline.weight(.medium))
                         }
                         .buttonStyle(.bordered)
                         .buttonBorderShape(.capsule)

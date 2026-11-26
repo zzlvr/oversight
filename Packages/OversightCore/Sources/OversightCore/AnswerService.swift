@@ -8,7 +8,7 @@ public final class AnswerService: @unchecked Sendable {
     private let lock = NSLock()
     private var inFlight = false
 
-    public init(provider: VisionProvider, session: URLSession = .shared) {
+    public init(provider: VisionProvider, session: URLSession = makePrivateSession()) {
         self.provider = provider
         self.session = session
     }

@@ -20,7 +20,12 @@ final class AssistantController: ObservableObject {
     private let frames = FrameBuffer()
     private let history = ScreenHistory()
     private let recent = RecentFrames()
-    private let receiver = FrameReceiver(identity: .load(from: KeychainStore(service: "com.zzlvr.oversight")))
+    nonisolated private static let senderKey = "pinnedBroadcastKey"
+    private let receiver = FrameReceiver(
+        identity: .load(from: KeychainStore(service: "com.zzlvr.oversight")),
+        senders: PinStore(
+            load: { UserDefaults.standard.data(forKey: AssistantController.senderKey) },
+            save: { UserDefaults.standard.set($0, forKey: AssistantController.senderKey) }))
     private var listening = false
 
     private init() {
@@ -62,6 +67,11 @@ final class AssistantController: ObservableObject {
                 frames.clear()
                 Task { @MainActor in self?.broadcastEnded() }
             })
+    }
+
+    /// Forgets which screen broadcast the app trusts; the next one to connect is remembered.
+    func resetPairing() {
+        UserDefaults.standard.removeObject(forKey: Self.senderKey)
     }
 
     func appBecameActive() {
@@ -124,8 +134,12 @@ final class AssistantController: ObservableObject {
         await ask(prompt, frame: selectedScreen?.jpeg)
     }
 
-    private func ask(_ question: String, frame: Data?) async {
+    private func ask(_ text: String, frame: Data?) async {
         guard !thinking else { return }
+        guard let question = cleanedQuestion(text) else {
+            present(self.text("This preset has no text. Edit it in Settings"))
+            return
+        }
         thinking = true
         defer { thinking = false }
         window.show(text("Thinking…"))
@@ -146,8 +160,8 @@ final class AssistantController: ObservableObject {
             present(reply)
         } catch let error as AssistError {
             var message = text(error.messageKey)
-            if case .http(let status, let detail) = error, status != 0 {
-                message += "\n\(status): \(detail)"
+            if case .http(let status, let detail) = error, let shown = errorDetail(status: status, message: detail) {
+                message += "\n\(shown)"
             }
             present(message)
         } catch {

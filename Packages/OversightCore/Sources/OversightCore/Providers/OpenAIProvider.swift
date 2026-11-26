@@ -3,6 +3,7 @@ import Foundation
 struct OpenAIProvider: VisionProvider {
     func makeRequest(prompt: String, jpeg: Data, apiKey: String, model: String) throws -> URLRequest {
         let key = try ProviderSupport.requireKey(apiKey)
+        try ProviderSupport.requireModel(model)
         var body: [String: Any] = [
             "model": model,
             "max_completion_tokens": 4096,

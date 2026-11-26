@@ -1,8 +1,8 @@
 import CryptoKit
 import Foundation
 
-/// The app's signing key. The broadcast extension remembers the public half the first time
-/// it connects and afterwards sends frames only to a listener that can sign with it.
+/// A signing key. The app and the broadcast extension each have one, remember the other's
+/// public key the first time they meet, and accept nobody else afterwards.
 public struct FrameIdentity {
     let key: P256.Signing.PrivateKey
 
@@ -29,13 +29,14 @@ public struct FrameIdentity {
         return identity
     }
 
-    func reply(to nonce: Data) -> Data? {
-        guard let signature = try? key.signature(for: nonce) else { return nil }
+    /// 64 bytes of public key followed by a 64 byte signature of `message`.
+    func proof(of message: Data) -> Data? {
+        guard let signature = try? key.signature(for: message) else { return nil }
         return publicKey + signature.rawRepresentation
     }
 }
 
-/// Where the extension keeps the public key it trusts.
+/// Where one side keeps the public key of the other.
 public struct PinStore {
     let load: () -> Data?
     let save: (Data) -> Void
@@ -45,13 +46,14 @@ public struct PinStore {
         self.save = save
     }
 
-    /// True if `reply` proves the listener holds the trusted key (trusting the first one seen).
-    func accepts(reply: Data, nonce: Data) -> Bool {
-        let publicKey = Data(reply.prefix(64))
+    /// True if `proof` signs `message` with the trusted key (trusting the first valid one seen).
+    func accepts(proof: Data, of message: Data) -> Bool {
+        guard proof.count == 128 else { return false }
+        let publicKey = Data(proof.prefix(64))
         if let pinned = load(), pinned != publicKey { return false }
         guard let key = try? P256.Signing.PublicKey(rawRepresentation: publicKey),
-              let signature = try? P256.Signing.ECDSASignature(rawRepresentation: Data(reply.dropFirst(64))),
-              key.isValidSignature(signature, for: nonce)
+              let signature = try? P256.Signing.ECDSASignature(rawRepresentation: Data(proof.dropFirst(64))),
+              key.isValidSignature(signature, for: message)
         else { return false }
         if load() == nil { save(publicKey) }
         return true

@@ -590,6 +590,56 @@
           }
         }
       }
+    },
+    "Invalid model name": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверное имя модели"
+          }
+        }
+      }
+    },
+    "This preset has no text. Edit it in Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В этой заготовке нет текста. Заполните её в настройках"
+          }
+        }
+      }
+    },
+    "Reset screen pairing": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сбросить связь с трансляцией"
+          }
+        }
+      }
+    },
+    "Use this if the app stops receiving the screen after a reinstall.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите, если после переустановки приложение перестало получать экран."
+          }
+        }
+      }
+    },
+    "Untitled": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без названия"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

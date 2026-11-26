@@ -67,6 +67,12 @@ struct SettingsView: View {
                 Text("The first preset is the one the floating window runs.")
             }
 
+            Section {
+                Button("Reset screen pairing") { AssistantController.shared.resetPairing() }
+            } footer: {
+                Text("Use this if the app stops receiving the screen after a reinstall.")
+            }
+
             Section("Instructions for the AI") {
                 TextEditor(text: $model.systemPrompt).frame(minHeight: 140)
             }
@@ -85,7 +91,7 @@ struct PresetsView: View {
                 NavigationLink {
                     PresetEditor(preset: $preset)
                 } label: {
-                    Text(LocalizedStringKey(preset.title))
+                    Text(LocalizedStringKey(preset.title.isEmpty ? "Untitled" : preset.title))
                 }
             }
             .onDelete { model.presets.remove(atOffsets: $0) }

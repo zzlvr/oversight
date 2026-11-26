@@ -38,7 +38,19 @@ enum ProviderSupport {
     static func requireKey(_ key: String) throws -> String {
         let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { throw AssistError.missingKey }
+        // A key is printable ASCII; anything else could break out of its header.
+        guard trimmed.unicodeScalars.allSatisfy({ (0x21...0x7E).contains($0.value) }) else {
+            throw AssistError.invalidKey
+        }
         return trimmed
+    }
+
+    /// Model names go into request bodies and, for Gemini, into the URL.
+    static func requireModel(_ model: String) throws {
+        let pattern = "^[A-Za-z0-9][A-Za-z0-9._:-]{0,99}$"
+        guard model.range(of: pattern, options: .regularExpression) != nil else {
+            throw AssistError.invalidModel
+        }
     }
 
     static func request(url: URL, headers: [String: String], body: [String: Any]) throws -> URLRequest {
@@ -62,7 +74,7 @@ enum ProviderSupport {
     static func finish(_ text: String) throws -> String {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { throw AssistError.emptyAnswer }
-        return trimmed
+        return String(trimmed.prefix(maxAnswerLength))
     }
 
     static func json(_ data: Data) -> [String: Any]? {

@@ -8,7 +8,7 @@ Do not list everything on the screen. When you name a button, quote its label an
 """
 
 public func composePrompt(system: String, preset: String, answerLanguage: String) -> String {
-    "\(system)\nAnswer in \(answerLanguage).\n\n\(preset)"
+    "\(system.prefix(maxInstructionsLength))\n\(screenTextRule)\nAnswer in \(answerLanguage).\n\n\(preset)"
 }
 
 public func answerLanguageName(for language: AppLanguage, preferred: [String] = Locale.preferredLanguages) -> String {

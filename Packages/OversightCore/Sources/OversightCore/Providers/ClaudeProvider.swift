@@ -3,6 +3,7 @@ import Foundation
 struct ClaudeProvider: VisionProvider {
     func makeRequest(prompt: String, jpeg: Data, apiKey: String, model: String) throws -> URLRequest {
         let key = try ProviderSupport.requireKey(apiKey)
+        try ProviderSupport.requireModel(model)
         var body: [String: Any] = [
             "model": model,
             "max_tokens": 4096,
