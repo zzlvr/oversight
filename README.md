@@ -1,13 +1,22 @@
+<p align="center">
+  <img src="App/Assets.xcassets/AppIcon.appiconset/icon.png" width="128" alt="Oversight icon">
+</p>
+
 # Oversight
 
-Oversight is an iPhone app that helps you use apps in a language you do not read. It looks at your screen when you ask, sends that one screenshot to the AI provider you choose, and shows the answer in a small floating window on top of the other app.
+A screen-aware assistant for iPhone. Ask about whatever is on your screen, and the answer floats over the app you are using. You bring your own API key, and there is no server in between.
 
-I built it to shop in a Chinese app without taking screenshots and switching to a chat every time.
+<p align="center">
+  <img src="docs/images/answer-over-app.jpg" width="300" alt="An answer in a floating window over a shopping app">
+</p>
+
+I started it because I was tired of taking screenshots and switching to a chat to understand what to tap. Now it is a general assistant for any screen: translate it, explain it, help you choose, tell you where to tap.
 
 ## Features
 
 - Answers in a Picture-in-Picture window over other apps
-- Your own questions about a screen you marked, plus editable prompt presets
+- Pause in the window asks your first prompt preset about the current screen
+- Your own questions about a screen you saved, plus editable prompt presets
 - Claude, OpenAI or Gemini with your own API key
 - Inexpensive models by default, any model name can be entered in Settings
 - English and Russian interface
@@ -16,14 +25,18 @@ I built it to shop in a Chinese app without taking screenshots and switching to 
 
 - iPhone with iOS 18 or later
 - An API key from Anthropic, OpenAI or Google
-- A computer with Sideloadly or AltStore to install the app
+- A computer with [Sideloadly](https://sideloadly.io) to install the app
 
 Oversight is not on the App Store.
 
+## Free to try
+
+Gemini is the default provider, and [its API has a free tier](https://ai.google.dev/gemini-api/docs/pricing). On that tier Google may use what you send to improve its products and people may read it, so do not ask while private information is on the screen. Google's [terms](https://ai.google.dev/gemini-api/terms) also set age and regional conditions.
+
 ## Install
 
-1. Download `Oversight.ipa` from the Releases page.
-2. Open it in [Sideloadly](https://sideloadly.io), connect your iPhone, sign in with your Apple ID and start.
+1. Download `Oversight.ipa` from the [Releases](../../releases) page.
+2. Open it in Sideloadly, connect your iPhone, sign in with your Apple ID and start.
 3. On the iPhone, turn on Developer Mode (Settings, Privacy & Security) and trust your profile (Settings, General, VPN & Device Management).
 
 With a free Apple ID the signature lasts 7 days. Install the app again after that.
@@ -44,7 +57,7 @@ With a free Apple ID the signature lasts 7 days. Install the app again after tha
 - iOS does not let apps draw over other apps, so Oversight cannot highlight buttons. It describes where to tap.
 - The screen broadcast has to be running, and iOS shows its recording indicator.
 - Apps that block screen capture give a black picture.
-- The floating window covers part of the screen and is part of the screenshot.
+- The floating window covers part of the screen, and what is under it is not seen.
 
 ## How it works
 
