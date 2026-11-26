@@ -64,6 +64,21 @@ final class LoopbackFramesTests: XCTestCase {
         receiver.stop()
     }
 
+    func testEndSignalIsNotDroppedWhileAFrameIsInFlight() {
+        let ended = expectation(description: "end")
+        let endSent = expectation(description: "end sent")
+        let receiver = startReceiver(FrameIdentity(), port: 47995, onEnd: { ended.fulfill() })
+        let sender = FrameSender(port: 47995, pins: Pin().store)
+
+        sender.send(Data(count: 2_000_000))
+        sender.send(Data()) { success in
+            XCTAssertTrue(success)
+            endSent.fulfill()
+        }
+        wait(for: [endSent, ended], timeout: 8)
+        receiver.stop()
+    }
+
     func testSendFailsWhenNobodyIsListening() {
         XCTAssertFalse(send(Data([1]), port: 47994, pin: Pin()))
     }
