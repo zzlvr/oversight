@@ -28,7 +28,7 @@ struct SettingsView: View {
             } header: {
                 Text("Provider")
             } footer: {
-                Text("Your key is stored in the iOS Keychain on this device only.")
+                Text("Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.")
             }
 
             Section("Language") {
@@ -43,8 +43,12 @@ struct SettingsView: View {
                 }
             }
 
-            Section("Prompts") {
+            Section {
                 NavigationLink("Prompt presets") { PresetsView(model: model) }
+            } header: {
+                Text("Prompts")
+            } footer: {
+                Text("The first preset is the one the floating window runs.")
             }
 
             Section("Instructions for the AI") {
@@ -61,7 +65,11 @@ struct PresetsView: View {
     var body: some View {
         List {
             ForEach($model.presets) { $preset in
-                NavigationLink(preset.title) { PresetEditor(preset: $preset) }
+                NavigationLink {
+                    PresetEditor(preset: $preset)
+                } label: {
+                    Text(LocalizedStringKey(preset.title))
+                }
             }
             .onDelete { model.presets.remove(atOffsets: $0) }
             .onMove { model.presets.move(fromOffsets: $0, toOffset: $1) }

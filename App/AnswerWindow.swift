@@ -8,6 +8,7 @@ import OversightCore
 final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBufferPlaybackDelegate, AVPictureInPictureControllerDelegate {
     let displayLayer = AVSampleBufferDisplayLayer()
     @Published var failure: String?
+    @Published var isActive = false
     var onPlayPause: (() -> Void)?
 
     private var controller: AVPictureInPictureController?
@@ -146,6 +147,14 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     }
 
     // MARK: AVPictureInPictureControllerDelegate
+
+    func pictureInPictureControllerDidStartPictureInPicture(_ c: AVPictureInPictureController) {
+        DispatchQueue.main.async { self.isActive = true }
+    }
+
+    func pictureInPictureControllerDidStopPictureInPicture(_ c: AVPictureInPictureController) {
+        DispatchQueue.main.async { self.isActive = false }
+    }
 
     func pictureInPictureController(_ c: AVPictureInPictureController, failedToStartPictureInPictureWithError error: Error) {
         DispatchQueue.main.async { self.failure = error.localizedDescription }

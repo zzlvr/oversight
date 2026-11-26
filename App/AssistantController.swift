@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import OversightCore
 
 /// Owns the frame listener, the floating window and the requests to the AI.
@@ -11,17 +12,24 @@ final class AssistantController: ObservableObject {
 
     @Published var listenerFailed = false
     @Published var receivingScreen = false
+    @Published var screens: [CapturedScreen] = []
+    @Published var selectedScreenID: UUID?
     @Published var answer = ""
     @Published var thinking = false
 
     private let frames = FrameBuffer()
+    private let history = ScreenHistory()
     private let receiver = FrameReceiver(identity: .load(from: KeychainStore(service: "com.zzlvr.oversight")))
     private var listening = false
 
     private init() {
         window.onPlayPause = { [weak self] in
-            Task { @MainActor in await self?.ask(presetIndex: 0) }
+            Task { @MainActor in await self?.askFromWindow() }
         }
+    }
+
+    var selectedScreen: CapturedScreen? {
+        screens.first { $0.id == selectedScreenID }
     }
 
     func startListening() {
@@ -41,22 +49,52 @@ final class AssistantController: ObservableObject {
             },
             onFrame: { [weak self] data in
                 frames.store(data)
-                Task { @MainActor in self?.receivingScreen = true }
+                Task { @MainActor in self?.received(data) }
             },
             onEnd: { [weak self] in
                 frames.clear()
-                Task { @MainActor in self?.receivingScreen = false }
+                Task { @MainActor in self?.broadcastEnded() }
             })
     }
 
-    func ask(presetIndex: Int) async {
+    /// Offers the screens seen in other apps, preselecting the one from just before the switch.
+    func appBecameActive() {
         startListening()
-        guard !thinking else { return }
-        let presets = settings.presets
-        guard presets.indices.contains(presetIndex) else {
-            present(text("No prompt preset with that number"))
+        screens = history.screens
+        selectedScreenID = history.screen(before: Date().addingTimeInterval(-1.5))?.id
+    }
+
+    private func received(_ data: Data) {
+        receivingScreen = true
+        // While Oversight itself is on screen the frames show Oversight, so they are not kept.
+        if UIApplication.shared.applicationState != .active {
+            history.add(data)
+        }
+    }
+
+    private func broadcastEnded() {
+        receivingScreen = false
+        history.clear()
+        screens = []
+        selectedScreenID = nil
+    }
+
+    /// The window's button: the live screen in another app, or the selected one inside Oversight.
+    private func askFromWindow() async {
+        let frame = UIApplication.shared.applicationState == .active ? selectedScreen?.jpeg : frames.latest()
+        guard let preset = settings.presets.first else {
+            present(text("No prompt presets. Add one in Settings"))
             return
         }
+        await ask(preset.prompt, frame: frame)
+    }
+
+    func askAboutSelectedScreen(_ prompt: String) async {
+        await ask(prompt, frame: selectedScreen?.jpeg)
+    }
+
+    private func ask(_ question: String, frame: Data?) async {
+        guard !thinking else { return }
         thinking = true
         defer { thinking = false }
         window.show(text("Thinking…"))
@@ -65,13 +103,13 @@ final class AssistantController: ObservableObject {
         let kind = stored.provider
         let prompt = composePrompt(
             system: stored.systemPrompt,
-            preset: presets[presetIndex].prompt,
+            preset: question,
             answerLanguage: answerLanguageName(for: stored.language))
         let service = AnswerService(provider: provider(for: kind))
         do {
             let reply = try await service.ask(
                 prompt: prompt,
-                frame: frames.latest(),
+                frame: frame,
                 apiKey: KeychainStore(service: "com.zzlvr.oversight").get(kind.rawValue),
                 model: stored.effectiveModel)
             present(reply)

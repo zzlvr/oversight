@@ -121,16 +121,6 @@
         }
       }
     },
-    "Your key is stored in the iOS Keychain on this device only.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ключ хранится только в Keychain на этом устройстве."
-          }
-        }
-      }
-    },
     "Screen broadcast": {
       "localizations": {
         "ru": {
@@ -147,16 +137,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экран получен"
-          }
-        }
-      }
-    },
-    "Tap the button and start the broadcast": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нажмите кнопку и начните трансляцию"
           }
         }
       }
@@ -181,26 +161,6 @@
         }
       }
     },
-    "Start floating window": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Открыть плавающее окно"
-          }
-        }
-      }
-    },
-    "Ask": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Спросить"
-          }
-        }
-      }
-    },
     "Answer": {
       "localizations": {
         "ru": {
@@ -211,42 +171,12 @@
         }
       }
     },
-    "Back Tap": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Касание задней панели"
-          }
-        }
-      }
-    },
-    "In Shortcuts, create a shortcut with the action \"Ask about this screen\". Then assign it in Settings, Accessibility, Touch, Back Tap.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В «Командах» создайте команду с действием «Ask about this screen». Затем назначьте её: Настройки, Универсальный доступ, Касание, Касание задней панели."
-          }
-        }
-      }
-    },
     "Instructions for the AI": {
       "localizations": {
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Инструкции для ИИ"
-          }
-        }
-      }
-    },
-    "No prompt preset with that number": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нет заготовки с таким номером"
           }
         }
       }
@@ -276,7 +206,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экран ещё не получен. Начните трансляцию"
+            "value": "Экран ещё не получен. Начните трансляцию и откройте другое приложение"
           }
         }
       }
@@ -337,6 +267,196 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сервис ИИ вернул ошибку"
+          }
+        }
+      }
+    },
+    "Get ready": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подготовка"
+          }
+        }
+      }
+    },
+    "Saved": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранён"
+          }
+        }
+      }
+    },
+    "Tap to add your key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите, чтобы добавить ключ"
+          }
+        }
+      }
+    },
+    "Tap the red button to start": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите красную кнопку"
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть"
+          }
+        }
+      }
+    },
+    "Answers appear in it": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В нём появляются ответы"
+          }
+        }
+      }
+    },
+    "Ask about a screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спросить про экран"
+          }
+        }
+      }
+    },
+    "Open the app you need help with, wait a few seconds, then come back here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте приложение, с которым нужна помощь, подождите пару секунд и вернитесь сюда."
+          }
+        }
+      }
+    },
+    "What do you want to know?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что вы хотите узнать?"
+          }
+        }
+      }
+    },
+    "Send": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отправить"
+          }
+        }
+      }
+    },
+    "While you are in another app": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока вы в другом приложении"
+          }
+        }
+      }
+    },
+    "Pause in the floating window runs your first preset": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза в плавающем окне запускает первую заготовку"
+          }
+        }
+      }
+    },
+    "The skip buttons turn pages of a long answer": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кнопки перемотки листают длинный ответ"
+          }
+        }
+      }
+    },
+    "Your key is stored in the iOS Keychain on this device only. Leave Model empty to use the inexpensive default.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ хранится только в Keychain на этом устройстве. Оставьте модель пустой, чтобы использовать недорогую по умолчанию."
+          }
+        }
+      }
+    },
+    "The first preset is the one the floating window runs.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плавающее окно запускает первую заготовку."
+          }
+        }
+      }
+    },
+    "No prompt presets. Add one in Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет заготовок. Добавьте в настройках"
+          }
+        }
+      }
+    },
+    "Translate screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевести экран"
+          }
+        }
+      }
+    },
+    "Where do I tap?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куда нажать?"
+          }
+        }
+      }
+    },
+    "Is this a good deal?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это выгодно?"
           }
         }
       }
