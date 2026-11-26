@@ -90,12 +90,14 @@ public final class FrameReceiver: @unchecked Sendable {
     }
 }
 
-/// Sends one payload at a time; a payload offered while another is in flight is dropped.
+/// Sends one payload at a time. A frame offered while another is in flight is dropped;
+/// the end-of-broadcast signal (an empty payload) waits its turn instead.
 public final class FrameSender: @unchecked Sendable {
     private let port: UInt16
     private let pins: PinStore
     private let queue = DispatchQueue(label: "oversight.frames.send")
     private var current: NWConnection?
+    private var pendingEnd: ((Bool) -> Void)?
 
     public init(port: UInt16 = framePort, pins: PinStore) {
         self.port = port
@@ -105,7 +107,11 @@ public final class FrameSender: @unchecked Sendable {
     public func send(_ payload: Data, completion: ((Bool) -> Void)? = nil) {
         queue.async {
             guard self.current == nil else {
-                completion?(false)
+                if payload.isEmpty {
+                    self.pendingEnd = completion ?? { _ in }
+                } else {
+                    completion?(false)
+                }
                 return
             }
             let connection = NWConnection(host: "127.0.0.1", port: NWEndpoint.Port(rawValue: self.port)!, using: .tcp)
@@ -116,6 +122,10 @@ public final class FrameSender: @unchecked Sendable {
                 self.current = nil
                 connection.cancel()
                 completion?(success)
+                if let end = self.pendingEnd {
+                    self.pendingEnd = nil
+                    self.send(Data(), completion: end)
+                }
             }
 
             connection.stateUpdateHandler = { state in
