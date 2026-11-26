@@ -7,8 +7,9 @@
 A screen-aware assistant for iPhone. Ask about whatever is on your screen, and the answer floats over the app you are using. You bring your own API key, and there is no server in between.
 
 <p align="center">
-  <img src="docs/images/answer-over-app.jpg" width="300" alt="An answer in a floating window over a shopping app">
+  <img src="docs/images/examples.png" width="800" alt="Illustration: answers in a floating window over a settings screen, a homework problem and a list of phone plans">
 </p>
+<p align="center"><sub>Illustration with made-up screens and answers.</sub></p>
 
 I started it because I was tired of taking screenshots and switching to a chat to understand what to tap. Now it is a general assistant for any screen: translate it, explain it, help you choose, tell you where to tap.
 
