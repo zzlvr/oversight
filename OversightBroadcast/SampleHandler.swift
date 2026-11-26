@@ -9,8 +9,8 @@ final class SampleHandler: RPBroadcastSampleHandler {
     private let sender = FrameSender(
         identity: .load(from: KeychainStore(service: "com.zzlvr.oversight.broadcast")),
         pins: PinStore(
-        load: { UserDefaults.standard.data(forKey: "pinnedAppKey") },
-        save: { UserDefaults.standard.set($0, forKey: "pinnedAppKey") }))
+            load: { UserDefaults.standard.data(forKey: "pinnedAppKey") },
+            save: { UserDefaults.standard.set($0, forKey: "pinnedAppKey") }))
 
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         guard sampleBufferType == .video,

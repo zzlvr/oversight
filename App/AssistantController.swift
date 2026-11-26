@@ -134,10 +134,10 @@ final class AssistantController: ObservableObject {
         await ask(prompt, frame: selectedScreen?.jpeg)
     }
 
-    private func ask(_ text: String, frame: Data?) async {
+    private func ask(_ asked: String, frame: Data?) async {
         guard !thinking else { return }
-        guard let question = cleanedQuestion(text) else {
-            present(self.text("This preset has no text. Edit it in Settings"))
+        guard let question = cleanedQuestion(asked) else {
+            present(text("This preset has no text. Edit it in Settings"))
             return
         }
         thinking = true
