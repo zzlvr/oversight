@@ -342,11 +342,16 @@ struct BroadcastPicker: UIViewRepresentable {
         let appex = Bundle.main.builtInPlugInsURL?.appendingPathComponent("OversightBroadcast.appex")
         picker.preferredExtension = appex.flatMap { Bundle(url: $0)?.bundleIdentifier }
         picker.showsMicrophoneButton = false
-        // The system icon is dark; a light circle keeps it visible in dark mode.
-        picker.backgroundColor = .white
-        picker.layer.cornerRadius = 22
-        picker.layer.borderWidth = 1
-        picker.layer.borderColor = UIColor.separator.cgColor
+        // The system icon takes its colour from the surroundings, so draw our own red record button.
+        let symbol = UIImage(
+            systemName: "record.circle.fill",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 36))?
+            .withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+        for case let button as UIButton in picker.subviews {
+            button.setImage(symbol, for: .normal)
+            button.frame = picker.bounds
+            button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        }
         return picker
     }
     func updateUIView(_ uiView: RPSystemBroadcastPickerView, context: Context) {}
