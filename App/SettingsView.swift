@@ -14,7 +14,6 @@ struct SettingsView: View {
                     }
                 }
                 SecureField("API key", text: $model.apiKey)
-                    .textContentType(.password)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                 if model.keySaveFailed {

@@ -5,8 +5,13 @@ public struct KeychainError: Error, Equatable {
     public let status: OSStatus
 }
 
+public protocol SecretStore {
+    func get(_ key: String) -> String?
+    func set(_ value: String, for key: String) throws
+}
+
 /// Stores short secrets (API keys) as generic passwords in the Keychain.
-public struct KeychainStore: Sendable {
+public struct KeychainStore: SecretStore, Sendable {
     public let service: String
 
     public init(service: String) {

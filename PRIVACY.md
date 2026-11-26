@@ -14,7 +14,7 @@ A screenshot contains whatever is on the screen, including messages, addresses o
 
 - The answer is drawn on screen, where people nearby and the screen broadcast can see it.
 - Text on a screen can try to steer the AI. The app tells the model not to obey it, which lowers the risk but does not remove it. Check before you pay, log in or follow a link.
-- The first time the app and its extension meet, each trusts what answers. An app on your phone that got there first could take that place.
+- The first time the app and its extension meet, each trusts what answers. An app on your phone that got there first could take that place, and another app could also get in the way of the broadcast by holding connections open.
 
 ## What stays on the phone
 

@@ -1,14 +1,17 @@
 import Foundation
 
+/// A session with a delegate lives until invalidated, so there is exactly one.
+public let sharedPrivateSession = makePrivateSession()
+
 /// Sends one frame and prompt to the selected provider and returns the answer text.
 /// Only one request runs at a time; a second call while one is in flight throws `.busy`.
 public final class AnswerService: @unchecked Sendable {
     private let provider: VisionProvider
-    private let session: URLSession
+    let session: URLSession
     private let lock = NSLock()
     private var inFlight = false
 
-    public init(provider: VisionProvider, session: URLSession = makePrivateSession()) {
+    public init(provider: VisionProvider, session: URLSession = sharedPrivateSession) {
         self.provider = provider
         self.session = session
     }

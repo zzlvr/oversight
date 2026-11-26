@@ -640,6 +640,16 @@
           }
         }
       }
+    },
+    "On Gemini's free tier Google may use what you send and people may read it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На бесплатном тарифе Gemini Google может использовать присланное, и это могут читать люди."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

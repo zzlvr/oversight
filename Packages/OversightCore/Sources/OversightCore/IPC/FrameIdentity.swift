@@ -16,16 +16,22 @@ public struct FrameIdentity {
 
     public var publicKey: Data { key.publicKey.rawRepresentation }
 
-    /// Loads the key from the Keychain, creating and saving it on first use.
-    public static func load(from keychain: KeychainStore) -> FrameIdentity {
+    /// Loads the key from the Keychain, creating it on first use. If the Keychain refuses to
+    /// save it, the key is kept in `fallback`, so that the extension keeps recognising the app.
+    public static func load(from store: SecretStore, fallback: UserDefaults = .standard) -> FrameIdentity {
         let account = "frame-identity"
-        if let saved = keychain.get(account),
+        if let saved = store.get(account) ?? fallback.string(forKey: account),
            let raw = Data(base64Encoded: saved),
            let key = try? P256.Signing.PrivateKey(rawRepresentation: raw) {
             return FrameIdentity(key: key)
         }
         let identity = FrameIdentity()
-        try? keychain.set(identity.key.rawRepresentation.base64EncodedString(), for: account)
+        let encoded = identity.key.rawRepresentation.base64EncodedString()
+        do {
+            try store.set(encoded, for: account)
+        } catch {
+            fallback.set(encoded, forKey: account)
+        }
         return identity
     }
 

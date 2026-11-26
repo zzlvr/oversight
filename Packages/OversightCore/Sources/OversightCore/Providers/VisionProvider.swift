@@ -47,7 +47,7 @@ enum ProviderSupport {
 
     /// Model names go into request bodies and, for Gemini, into the URL.
     static func requireModel(_ model: String) throws {
-        let pattern = "^[A-Za-z0-9][A-Za-z0-9._:-]{0,99}$"
+        let pattern = "\A[A-Za-z0-9][A-Za-z0-9._:-]{0,99}\z"
         guard model.range(of: pattern, options: .regularExpression) != nil else {
             throw AssistError.invalidModel
         }
