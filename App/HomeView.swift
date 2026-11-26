@@ -94,7 +94,9 @@ struct HomeView: View {
                     step(done: window.isActive, title: "Floating window",
                          detail: window.isActive ? "Open" : "Answers appear in it")
                     Spacer()
-                    Button("Open") { window.start() }
+                    Button { window.start() } label: {
+                        Text("Open").foregroundStyle(Color(.systemBackground))
+                    }
                         .buttonStyle(.borderedProminent)
                         .buttonBorderShape(.capsule)
                         .disabled(window.isActive)
@@ -316,7 +318,7 @@ struct WelcomeView: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             Button(action: done) {
-                Text("Continue").font(.headline).frame(maxWidth: .infinity)
+                Text("Continue").font(.headline).foregroundStyle(Color(.systemBackground)).frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
