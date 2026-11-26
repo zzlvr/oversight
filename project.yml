@@ -23,11 +23,6 @@ targets:
         CFBundleLocalizations: [en, ru]
         UILaunchScreen: {}
         UIBackgroundModes: [audio]
-    entitlements:
-      path: App/Oversight.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.zzlvr.oversight
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.zzlvr.oversight
@@ -47,11 +42,6 @@ targets:
           NSExtensionPointIdentifier: com.apple.broadcast-services-upload
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SampleHandler
           RPBroadcastProcessMode: RPBroadcastProcessModeSampleBuffer
-    entitlements:
-      path: OversightBroadcast/OversightBroadcast.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.zzlvr.oversight
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.zzlvr.oversight.broadcast

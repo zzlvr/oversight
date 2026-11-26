@@ -46,6 +46,10 @@ struct SettingsView: View {
             Section("Prompts") {
                 NavigationLink("Prompt presets") { PresetsView(model: model) }
             }
+
+            Section("Instructions for the AI") {
+                TextEditor(text: $model.systemPrompt).frame(minHeight: 140)
+            }
         }
         .navigationTitle("Settings")
     }

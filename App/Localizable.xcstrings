@@ -1,19 +1,346 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "Add preset" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Добавить заготовку" } } } },
-    "API key" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "API-ключ" } } } },
-    "Could not save the key" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Не удалось сохранить ключ" } } } },
-    "Language" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Язык" } } } },
-    "Model" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Модель" } } } },
-    "Prompt" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Промт" } } } },
-    "Prompt presets" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Заготовки промтов" } } } },
-    "Prompts" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Промты" } } } },
-    "Provider" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Провайдер" } } } },
-    "Settings" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Настройки" } } } },
-    "System" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Системный" } } } },
-    "Title" : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Название" } } } },
-    "Your key is stored in the iOS Keychain on this device only." : { "localizations" : { "ru" : { "stringUnit" : { "state" : "translated", "value" : "Ключ хранится только в Keychain на этом устройстве." } } } }
+  "sourceLanguage": "en",
+  "strings": {
+    "Add preset": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить заготовку"
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-ключ"
+          }
+        }
+      }
+    },
+    "Could not save the key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось сохранить ключ"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык"
+          }
+        }
+      }
+    },
+    "Model": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модель"
+          }
+        }
+      }
+    },
+    "Prompt": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Промт"
+          }
+        }
+      }
+    },
+    "Prompt presets": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заготовки промтов"
+          }
+        }
+      }
+    },
+    "Prompts": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Промты"
+          }
+        }
+      }
+    },
+    "Provider": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Провайдер"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки"
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системный"
+          }
+        }
+      }
+    },
+    "Title": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
+          }
+        }
+      }
+    },
+    "Your key is stored in the iOS Keychain on this device only.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ хранится только в Keychain на этом устройстве."
+          }
+        }
+      }
+    },
+    "Screen broadcast": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Трансляция экрана"
+          }
+        }
+      }
+    },
+    "Receiving the screen": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран получен"
+          }
+        }
+      }
+    },
+    "Tap the button and start the broadcast": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите кнопку и начните трансляцию"
+          }
+        }
+      }
+    },
+    "Cannot receive frames. Reopen the app": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удаётся принимать кадры. Откройте приложение заново"
+          }
+        }
+      }
+    },
+    "Floating window": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плавающее окно"
+          }
+        }
+      }
+    },
+    "Start floating window": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть плавающее окно"
+          }
+        }
+      }
+    },
+    "Ask": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спросить"
+          }
+        }
+      }
+    },
+    "Answer": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответ"
+          }
+        }
+      }
+    },
+    "Back Tap": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Касание задней панели"
+          }
+        }
+      }
+    },
+    "In Shortcuts, create a shortcut with the action \"Ask about this screen\". Then assign it in Settings, Accessibility, Touch, Back Tap.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В «Командах» создайте команду с действием «Ask about this screen». Затем назначьте её: Настройки, Универсальный доступ, Касание, Касание задней панели."
+          }
+        }
+      }
+    },
+    "Instructions for the AI": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инструкции для ИИ"
+          }
+        }
+      }
+    },
+    "No prompt preset with that number": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет заготовки с таким номером"
+          }
+        }
+      }
+    },
+    "Thinking…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Думаю…"
+          }
+        }
+      }
+    },
+    "Add your API key in Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте API-ключ в настройках"
+          }
+        }
+      }
+    },
+    "No screen captured yet. Start the broadcast": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экран ещё не получен. Начните трансляцию"
+          }
+        }
+      }
+    },
+    "The request timed out. Try again": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время ожидания истекло. Попробуйте ещё раз"
+          }
+        }
+      }
+    },
+    "The AI returned an empty answer": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ИИ вернул пустой ответ"
+          }
+        }
+      }
+    },
+    "Still working on the last question": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё обрабатываю прошлый вопрос"
+          }
+        }
+      }
+    },
+    "Invalid API key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный API-ключ"
+          }
+        }
+      }
+    },
+    "No network connection": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет подключения к сети"
+          }
+        }
+      }
+    },
+    "The AI service returned an error": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервис ИИ вернул ошибку"
+          }
+        }
+      }
+    }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

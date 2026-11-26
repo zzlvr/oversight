@@ -37,6 +37,10 @@ final class SettingsModel: ObservableObject {
         didSet { settings.language = language }
     }
 
+    @Published var systemPrompt: String {
+        didSet { settings.systemPrompt = systemPrompt }
+    }
+
     @Published var presets: [PromptPreset] {
         didSet { presetStore.presets = presets }
     }
@@ -54,6 +58,7 @@ final class SettingsModel: ObservableObject {
         apiKey = keychain.get(settings.provider.rawValue) ?? ""
         model = settings.model(for: settings.provider) ?? ""
         language = settings.language
+        systemPrompt = settings.systemPrompt
         presets = presetStore.presets
     }
 
