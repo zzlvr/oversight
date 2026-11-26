@@ -22,6 +22,8 @@ flowchart LR
 
 **No App Group.** A profile signed with a free Apple ID did not grant the App Group, so the extension sends frames over loopback. The app signs a random value with its own key, and the extension only sends to a receiver that holds the key it saw first.
 
+**Recent screens.** A screen is offered for questions only after it stays still for 1.5 seconds, so app switching and scrolling are left out.
+
 **Staying alive.** The app keeps receiving in the background while the floating window is open.
 
 **Memory.** Broadcast extensions have a small memory limit, so only one frame is processed at a time.

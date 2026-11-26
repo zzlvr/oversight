@@ -57,18 +57,18 @@ final class AssistantController: ObservableObject {
             })
     }
 
-    /// Offers the screens seen in other apps, preselecting the one from just before the switch.
+    /// Offers the screens seen in other apps, preselecting the last one that stayed on screen.
     func appBecameActive() {
         startListening()
         screens = history.screens
-        selectedScreenID = history.screen(before: Date().addingTimeInterval(-1.5))?.id
+        selectedScreenID = screens.last?.id
     }
 
     private func received(_ data: Data) {
         receivingScreen = true
         // While Oversight itself is on screen the frames show Oversight, so they are not kept.
-        if UIApplication.shared.applicationState != .active {
-            history.add(data)
+        if UIApplication.shared.applicationState != .active, let signature = screenSignature(of: data) {
+            history.add(data, signature: signature)
         }
     }
 
