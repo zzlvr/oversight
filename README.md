@@ -36,22 +36,35 @@ Gemini is the default provider, and [its API has a free tier](https://ai.google.
 
 ## Install
 
-1. Download `Oversight.ipa` from the [Releases](../../releases) page.
-2. Open it in Sideloadly, connect your iPhone, sign in with your Apple ID and start.
-3. On the iPhone, turn on Developer Mode (Settings, Privacy & Security) and trust your profile (Settings, General, VPN & Device Management).
+1. On Windows, install iTunes and iCloud from Apple's website, not from the Microsoft Store. Without them Sideloadly may not see the phone.
+2. Download `Oversight.ipa` from the [Releases](../../releases) page.
+3. Open it in Sideloadly, connect your iPhone with a cable, tap Trust on the phone, sign in with your Apple ID and start.
+4. On the iPhone, turn on Developer Mode (Settings, Privacy & Security, Developer Mode). The option appears only after the first install attempt, and the phone restarts.
+5. Trust your profile (Settings, General, VPN & Device Management).
 
 With a free Apple ID the signature lasts 7 days. Install the app again after that.
 
 ## Use
 
-1. Open Settings in the app and add your API key.
-2. Tap the red button and start the screen broadcast.
+1. Open Settings in the app (the gear). The key button there opens your provider's key page. Create a key, copy it and paste it into the app.
+2. Tap the red button, choose Oversight Broadcast and start the broadcast.
 3. Open the floating window.
 4. Switch to the other app.
    - Pause in the floating window runs your first preset.
    - Skip back saves the current screen without sending it.
    - On a long answer the skip buttons turn pages instead.
 5. To ask something specific, save the screen, switch to Oversight and type your question. The window's full-screen button saves the screen and opens Oversight in one step.
+6. When you are done, stop the broadcast from Control Center.
+
+Keep this order. The broadcast gives the app your screen, and the floating window keeps the app running while you are somewhere else.
+
+## Troubleshooting
+
+- **The app does not receive the screen.** Open Oversight first, then start the broadcast and make sure Oversight Broadcast is selected. If you installed it again with another Apple ID, delete the app and reinstall.
+- **The floating window does not open.** Tap Open again.
+- **Invalid API key.** Check that the key belongs to the provider selected in Settings.
+- **The error mentions the model.** Clear the Model field to use the default.
+- **The app no longer opens.** The 7-day signature has expired. Install it again.
 
 ## Limits
 
