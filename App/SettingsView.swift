@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import OversightCore
 
 struct SettingsView: View {
@@ -71,6 +72,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .keyboardDoneButton()
     }
 }
 
@@ -118,5 +120,22 @@ struct PresetEditor: View {
         }
         .navigationTitle(preset.title)
         .navigationBarTitleDisplayMode(.inline)
+        .keyboardDoneButton()
+    }
+}
+
+extension View {
+    /// Adds a Done button above the keyboard and lets a swipe dismiss it.
+    func keyboardDoneButton() -> some View {
+        scrollDismissesKeyboard(.interactively)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        UIApplication.shared.sendAction(
+                            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                }
+            }
     }
 }

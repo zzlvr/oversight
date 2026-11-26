@@ -10,6 +10,7 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     @Published var failure: String?
     @Published var isActive = false
     var onPlayPause: (() -> Void)?
+    var onReturn: ((Date) -> Void)?
 
     private var controller: AVPictureInPictureController?
     private var timebase: CMTimebase?
@@ -154,6 +155,14 @@ final class AnswerWindow: NSObject, ObservableObject, AVPictureInPictureSampleBu
     }
 
     // MARK: AVPictureInPictureControllerDelegate
+
+    func pictureInPictureController(_ c: AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
+        let pressed = Date()
+        DispatchQueue.main.async {
+            self.onReturn?(pressed)
+            completionHandler(true)
+        }
+    }
 
     func pictureInPictureControllerDidStartPictureInPicture(_ c: AVPictureInPictureController) {
         DispatchQueue.main.async { self.isActive = true }

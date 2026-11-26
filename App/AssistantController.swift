@@ -19,12 +19,16 @@ final class AssistantController: ObservableObject {
 
     private let frames = FrameBuffer()
     private let history = ScreenHistory()
+    private let recent = RecentFrames()
     private let receiver = FrameReceiver(identity: .load(from: KeychainStore(service: "com.zzlvr.oversight")))
     private var listening = false
 
     private init() {
         window.onPlayPause = { [weak self] in
             Task { @MainActor in await self?.askFromWindow() }
+        }
+        window.onReturn = { [weak self] pressed in
+            Task { @MainActor in self?.markScreen(leftAt: pressed) }
         }
     }
 
@@ -57,31 +61,44 @@ final class AssistantController: ObservableObject {
             })
     }
 
-    /// Offers the screens seen in other apps, preselecting the one from just before the switch.
     func appBecameActive() {
         startListening()
+    }
+
+    /// The window's return button: keep what was on screen just before it was pressed.
+    private func markScreen(leftAt pressed: Date) {
+        guard let frame = recent.frame(before: pressed.addingTimeInterval(-0.7)) else { return }
+        mark(frame)
+    }
+
+    private func mark(_ frame: Data) {
+        history.mark(frame)
         screens = history.screens
-        selectedScreenID = history.screen(before: Date().addingTimeInterval(-1.5))?.id
+        selectedScreenID = screens.last?.id
     }
 
     private func received(_ data: Data) {
         receivingScreen = true
         // While Oversight itself is on screen the frames show Oversight, so they are not kept.
         if UIApplication.shared.applicationState != .active {
-            history.add(data)
+            recent.add(data)
         }
     }
 
     private func broadcastEnded() {
         receivingScreen = false
         history.clear()
+        recent.clear()
         screens = []
         selectedScreenID = nil
     }
 
     /// The window's button: the live screen in another app, or the selected one inside Oversight.
     private func askFromWindow() async {
-        let frame = UIApplication.shared.applicationState == .active ? selectedScreen?.jpeg : frames.latest()
+        let inOversight = UIApplication.shared.applicationState == .active
+        let frame = inOversight ? selectedScreen?.jpeg : frames.latest()
+        // A screen asked about from another app stays available for follow-up questions.
+        if !inOversight, let frame { mark(frame) }
         guard let preset = settings.presets.first else {
             present(text("No prompt presets. Add one in Settings"))
             return

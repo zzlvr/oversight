@@ -471,16 +471,6 @@
         }
       }
     },
-    "Open the app you need help with, then come back here.": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Откройте приложение, с которым нужна помощь, и вернитесь сюда."
-          }
-        }
-      }
-    },
     "Ask about this screen": {
       "localizations": {
         "ru": {
@@ -567,6 +557,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Продолжить"
+          }
+        }
+      }
+    },
+    "In another app, tap the return button in the floating window, or press pause. That screen appears here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В другом приложении нажмите кнопку возврата в плавающем окне или паузу. Этот экран появится здесь."
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
           }
         }
       }

@@ -7,7 +7,7 @@ I built it to shop in a Chinese app without taking screenshots and switching to 
 ## Features
 
 - Answers in a Picture-in-Picture window over other apps
-- Your own questions about a recent screen, plus editable prompt presets
+- Your own questions about a screen you marked, plus editable prompt presets
 - Claude, OpenAI or Gemini with your own API key
 - Inexpensive models by default, any model name can be entered in Settings
 - English and Russian interface
@@ -36,7 +36,7 @@ With a free Apple ID the signature lasts 7 days. Install the app again after tha
 4. Switch to the other app.
    - Pause in the floating window runs your first preset.
    - The skip buttons turn pages of a long answer.
-5. To ask something specific, come back to Oversight, pick the screen and type your question.
+5. To ask something specific, tap the return button in the floating window and type your question about that screen.
 
 ## Limits
 
